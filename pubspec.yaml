@@ -27,6 +27,10 @@ dependencies:
   responsive_builder: ^0.2.0+2
   flare_splash_screen: ^2.0.1+2
   device_preview: ^0.4.7
+  provider:
+  weather: ^1.2.2
+  extension: ^0.1.1
+  flutter_weather_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:

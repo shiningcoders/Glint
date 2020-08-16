@@ -3,7 +3,7 @@ import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:glint/Onboard/welcome.dart';
+import 'package:glint/app.dart';
 
 void main() => runApp(
       DevicePreview(
@@ -21,7 +21,7 @@ class Glint extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Glint',
-      home: SplashScreen('assets/animations/splash.flr', WelcomeScreen(),
+      home: SplashScreen('assets/animations/splash.flr', App(),
           startAnimation: 'Intro', backgroundColor: Colors.white),
     );
   }
