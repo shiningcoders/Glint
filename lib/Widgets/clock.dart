@@ -24,12 +24,10 @@ class _ClockState extends State<Clock> {
       timeInfo.updateHours();
       timeInfo.updateDate();
       count++;
-      print('Seconds calling');
     });
     Timer.periodic(Duration(minutes: 1), (t) {
       timeInfo.updateHours();
       timeInfo.updateDate();
-      print('Minutes calling');
       count != 0 ? t1.cancel() : null;
     });
     getCurrentWeather();
@@ -51,7 +49,6 @@ class _ClockState extends State<Clock> {
 
   void getCurrentWeather() async {
     weather = await wf.currentWeatherByCityName("Agra");
-    print(weather.weatherDescription);
   }
 
   String formatTime(time) {
