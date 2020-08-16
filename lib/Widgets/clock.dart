@@ -15,23 +15,39 @@ class Clock extends StatefulWidget {
 class _ClockState extends State<Clock> {
   WeatherFactory wf = WeatherFactory(weatherAPI);
   Weather weather;
+  int count = 0;
 
   @override
   void initState() {
-    super.initState();
-    getCurrentWeather();
-    updateTicker();
-  }
-
-  updateTicker() {
     var timeInfo = Provider.of<ClockNotifier>(context, listen: false);
+    var t1 = Timer.periodic(Duration(seconds: 1), (t) {
+      timeInfo.updateHours();
+      timeInfo.updateDate();
+      count++;
+      print('Seconds calling');
+    });
     Timer.periodic(Duration(minutes: 1), (t) {
       timeInfo.updateHours();
-    });
-    Timer.periodic(Duration(minutes: 1), (t) {
       timeInfo.updateDate();
+      print('Minutes calling');
+      count != 0 ? t1.cancel() : null;
     });
+    getCurrentWeather();
+    // updateTicker();
+    super.initState();
   }
+
+  // updateTicker() async {
+  //   var timeInfo = Provider.of<ClockNotifier>(context, listen: false);
+  //   timeInfo.updateDate();
+  //   timeInfo.updateHours();
+  //   Timer.periodic(Duration(minutes: 1), (t) {
+  //     timeInfo.updateHours();
+  //   });
+  //   Timer.periodic(Duration(days: 1), (t) {
+  //     timeInfo.updateDate();
+  //   });
+  // }
 
   void getCurrentWeather() async {
     weather = await wf.currentWeatherByCityName("Agra");
@@ -78,15 +94,98 @@ class _ClockState extends State<Clock> {
 
   Icon formatWeatherIcon(code) {
     const icons = {
-      '01d': Icon(WeatherIcons.wiDaySunny),
-      '01n': Icon(WeatherIcons.wiNightClear),
-      '02d': Icon(WeatherIcons.wiDayCloudy),
-      '02n': Icon(WeatherIcons.wiNightCloudy),
-      '03d': Icon(WeatherIcons.wiCloud),
-      '03n': Icon(WeatherIcons.wiCloud),
-      '04d': Icon(WeatherIcons.wiCloudy),
-      '04n': Icon(WeatherIcons.wiCloudy),
+      '01d': Icon(
+        WeatherIcons.wiDaySunny,
+        color: Colors.white,
+        size: 18,
+      ),
+      '01n': Icon(
+        WeatherIcons.wiNightClear,
+        color: Colors.white,
+        size: 18,
+      ),
+      '02d': Icon(
+        WeatherIcons.wiDayCloudy,
+        color: Colors.white,
+        size: 18,
+      ),
+      '02n': Icon(
+        WeatherIcons.wiNightCloudy,
+        color: Colors.white,
+        size: 18,
+      ),
+      '03d': Icon(
+        WeatherIcons.wiCloud,
+        color: Colors.white,
+        size: 18,
+      ),
+      '03n': Icon(
+        WeatherIcons.wiCloud,
+        color: Colors.white,
+        size: 18,
+      ),
+      '04d': Icon(
+        WeatherIcons.wiCloudy,
+        color: Colors.white,
+        size: 18,
+      ),
+      '04n': Icon(
+        WeatherIcons.wiCloudy,
+        color: Colors.white,
+        size: 18,
+      ),
+      '09d': Icon(
+        WeatherIcons.wiShowers,
+        color: Colors.white,
+        size: 18,
+      ),
+      '09n': Icon(
+        WeatherIcons.wiShowers,
+        color: Colors.white,
+        size: 18,
+      ),
+      '10d': Icon(
+        WeatherIcons.wiDayRain,
+        color: Colors.white,
+        size: 18,
+      ),
+      '10n': Icon(
+        WeatherIcons.wiNightRain,
+        color: Colors.white,
+        size: 18,
+      ),
+      '11d': Icon(
+        WeatherIcons.wiDayThunderstorm,
+        color: Colors.white,
+        size: 18,
+      ),
+      '11n': Icon(
+        WeatherIcons.wiNightThunderstorm,
+        color: Colors.white,
+        size: 18,
+      ),
+      '13d': Icon(
+        WeatherIcons.wiDaySnow,
+        color: Colors.white,
+        size: 18,
+      ),
+      '13n': Icon(
+        WeatherIcons.wiNightSnow,
+        color: Colors.white,
+        size: 18,
+      ),
+      '50d': Icon(
+        WeatherIcons.wiDayFog,
+        color: Colors.white,
+        size: 18,
+      ),
+      '50n': Icon(
+        WeatherIcons.wiNightFog,
+        color: Colors.white,
+        size: 18,
+      ),
     };
+    return icons[code];
   }
 
   @override
@@ -129,7 +228,7 @@ class _ClockState extends State<Clock> {
             );
           }),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             width: 60,
@@ -141,40 +240,48 @@ class _ClockState extends State<Clock> {
           ),
           Container(
             width: 190,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.wb_sunny,
-                  color: Colors.white,
-                  size: 18,
-                ),
-                SizedBox(
-                  width: 7,
-                ),
-                Text(
-                  weather != null
-                      ? '${weather.weatherIcon} ${(weather.weatherDescription)}'
-                          .capitalizeFirstLetter()
-                      : '',
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300),
-                ),
-                Spacer(),
-                Text(
-                  weather != null
-                      ? '${weather.temperature}'[0] +
-                          '${weather.temperature}'[1] +
-                          ' ℃'
-                      : '',
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300),
-                ),
-              ],
-            ),
+            child: Consumer<ClockNotifier>(builder: (context, value, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      weather != null
+                          ? formatWeatherIcon('${weather.weatherIcon}')
+                          : Container(),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    weather != null
+                        ? '${(weather.weatherDescription)}'
+                            .capitalizeFirstLetter()
+                        : '',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  Spacer(),
+                  Text(
+                    weather != null
+                        ? '${weather.temperature}'[0] +
+                            '${weather.temperature}'[1] +
+                            ' ℃'
+                        : '',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
+              );
+            }),
           )
         ],
       ),
