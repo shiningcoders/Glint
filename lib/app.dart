@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:glint/Screens/appsDrawerPage.dart';
 import 'package:glint/Screens/homePage.dart';
 
 class App extends StatefulWidget {
@@ -46,7 +47,7 @@ class _AppState extends State<App> {
                   children: [
                     HomePage(),
                     HomePage(),
-                    HomePage(),
+                    AppsDrawerPage(),
                   ],
                 ),
               ),
