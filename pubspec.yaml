@@ -31,6 +31,11 @@ dependencies:
   weather: ^1.2.2
   extension: ^0.1.1
   flutter_weather_icons: ^1.0.2
+  launcher_assist:
+    git:
+      url: git://github.com/emvaized/launcher-assist-for-flutter
+      ref: master
+
 
 dev_dependencies:
   flutter_test:
