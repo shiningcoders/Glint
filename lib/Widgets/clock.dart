@@ -15,22 +15,24 @@ class Clock extends StatefulWidget {
 class _ClockState extends State<Clock> {
   WeatherFactory wf = WeatherFactory(weatherAPI);
   Weather weather;
-  int count = 0;
+  var t1;
 
   @override
   void initState() {
     var timeInfo = Provider.of<ClockNotifier>(context, listen: false);
-    var t1 = Timer.periodic(Duration(seconds: 1), (t) {
+    t1 = Timer.periodic(Duration(milliseconds: 100), (t) {
       timeInfo.updateHours();
       timeInfo.updateDate();
-      count++;
+      print('Seconds Call');
+      getCurrentWeather();
+      t1.cancel();
     });
     Timer.periodic(Duration(minutes: 1), (t) {
       timeInfo.updateHours();
       timeInfo.updateDate();
-      count != 0 ? t1.cancel() : null;
+      getCurrentWeather();
+      print('Minutes Call');
     });
-    getCurrentWeather();
     // updateTicker();
     super.initState();
   }
@@ -264,7 +266,9 @@ class _ClockState extends State<Clock> {
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
                   ),
-                  Spacer(),
+                  SizedBox(
+                    width: 15,
+                  ),
                   Text(
                     weather != null
                         ? '${weather.temperature}'[0] +
