@@ -35,6 +35,9 @@ dependencies:
     git:
       url: git://github.com/emvaized/launcher-assist-for-flutter
       ref: master
+  web_scraper:
+  device_apps: ^1.2.0
+  installed_apps: ^1.1.1
 
 
 dev_dependencies:

@@ -238,7 +238,7 @@ class _ClockState extends State<Clock> {
             height: 10,
           ),
           Container(
-            width: 190,
+            width: double.infinity,
             child: Consumer<ClockNotifier>(builder: (context, value, child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
