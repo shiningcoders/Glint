@@ -15,65 +15,65 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
     with AutomaticKeepAliveClientMixin<AppsDrawerPage> {
   var installedApps;
   var systemAppsLength;
+  List<String> cat;
+  Map<String, List<Application>> categories;
   AppsOrganiser organize = AppsOrganiser();
   @override
   void initState() {
-    callMeMan();
+    getAllCategories();
     super.initState();
   }
 
-  Future<void> callMeMan() async {
-    AppsOrganiser organize = AppsOrganiser();
-    await organize.getAllApps().then((apps) {
+  Future<void> getAllCategories() async {
+    await organize.getAllApps().then((map) {
       setState(() {
-        installedApps = apps;
+        categories = map;
+        categories.forEach((key, value) {
+          cat.add(key);
+        });
       });
     });
   }
 
-  Future<void> getMe() async {
-    AppsOrganiser organiser = AppsOrganiser();
-    await organize.getSaareApps().then((value) {
-      organiser.printApp();
-      setState(() {
-        installedApps = value;
-      });
-    });
-  }
+  // Future<void> callMeMan() async {
+  //   AppsOrganiser organize = AppsOrganiser();
+  //   await organize.getAllApps().then((apps) {
+  //     setState(() {
+  //       installedApps = apps;
+  //     });
+  //   });
+  // }
+
+  // Future<void> getMe() async {
+  //   AppsOrganiser organiser = AppsOrganiser();
+  //   await organize.getSaareApps().then((value) {
+  //     organiser.printApp();
+  //     setState(() {
+  //       installedApps = value;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder(
-      future: organize.getAllApps(),
+      future: getAllCategories(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Padding(
-            padding: EdgeInsets.all(40),
-            child: GridView.count(
-              crossAxisCount: 4,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 40,
-              children: List.generate(
-                installedApps.length != 0 ? installedApps.length : 0,
-                (index) {
-                  return GestureDetector(
-                    onTap: () {
-                      DeviceApps.openApp(installedApps[index].packageName);
-                    },
-                    child: SizedBox(
-                      width: 10,
-                      height: 10,
-                      child: Image.memory(installedApps[index].icon),
-                    ),
-                  );
-                },
+        return GridView.count(
+          crossAxisCount: 4,
+          mainAxisSpacing: 40,
+          padding: EdgeInsets.all(20),
+          children: List.generate(
+              categories.length != 0 ? categories.length : 0, (index) {
+            return Container(
+              width: 40,
+              height: 120,
+              child: Center(
+                child: Text(cat[index]),
               ),
-            ),
-          );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
+            );
+          }),
         );
       },
     );
