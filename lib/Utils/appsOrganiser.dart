@@ -1,16 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:device_apps/device_apps.dart';
+import 'package:flutter/material.dart';
 
 class AppsOrganiser {
-  var applist;
-  List<Application> aaap;
-  List<Application> apps;
-  Map<String, List<Application>> categories = {
+  List<ApplicationWithIcon> applist;
+  Map<String, List<ApplicationWithIcon>> categories = {
     'system': [],
     'google': [],
     'other': [],
   };
 
-  Future<Map<String, List<Application>>> getAllApps() async {
+  Future<Map> categorizeApps() async {
     await DeviceApps.getInstalledApplications(
             onlyAppsWithLaunchIntent: true,
             includeSystemApps: true,
@@ -32,23 +33,17 @@ class AppsOrganiser {
         }
       }
     });
-    print('\n\n\n${categories}');
-    return categories;
   }
 
-  printApp() async {
-    await DeviceApps.getInstalledApplications(
-      onlyAppsWithLaunchIntent: true,
-      includeAppIcons: true,
-      includeSystemApps: true,
-    ).then((apps) => print(apps[0].category));
+  List<String> getCategoryList() {
+    return categories.keys.toList();
   }
 
-  Future<List<Application>> getSaareApps() async {
-    return await DeviceApps.getInstalledApplications(
-      onlyAppsWithLaunchIntent: true,
-      includeAppIcons: true,
-      includeSystemApps: true,
-    );
+  List<ApplicationWithIcon> getAppsList(String key) {
+    return categories[key];
+  }
+
+  Uint8List getAppIcon(String key, int index) {
+    return categories[key][index].icon;
   }
 }

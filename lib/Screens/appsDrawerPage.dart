@@ -1,10 +1,10 @@
-import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:device_apps/device_apps.dart';
 import 'package:extension/string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:glint/Utils/appsOrganiser.dart';
-import 'package:installed_apps/installed_apps.dart';
-import 'package:launcher_assist/launcher_assist.dart';
 
 class AppsDrawerPage extends StatefulWidget {
   @override
@@ -14,66 +14,97 @@ class AppsDrawerPage extends StatefulWidget {
 class _AppsDrawerPageState extends State<AppsDrawerPage>
     with AutomaticKeepAliveClientMixin<AppsDrawerPage> {
   var installedApps;
-  var systemAppsLength;
-  List<String> cat;
-  Map<String, List<Application>> categories;
+  var categories;
   AppsOrganiser organize = AppsOrganiser();
+
   @override
   void initState() {
-    getAllCategories();
+    organize.categorizeApps();
     super.initState();
   }
-
-  Future<void> getAllCategories() async {
-    await organize.getAllApps().then((map) {
-      setState(() {
-        categories = map;
-        categories.forEach((key, value) {
-          cat.add(key);
-        });
-      });
-    });
-  }
-
-  // Future<void> callMeMan() async {
-  //   AppsOrganiser organize = AppsOrganiser();
-  //   await organize.getAllApps().then((apps) {
-  //     setState(() {
-  //       installedApps = apps;
-  //     });
-  //   });
-  // }
-
-  // Future<void> getMe() async {
-  //   AppsOrganiser organiser = AppsOrganiser();
-  //   await organize.getSaareApps().then((value) {
-  //     organiser.printApp();
-  //     setState(() {
-  //       installedApps = value;
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder(
-      future: getAllCategories(),
       builder: (context, snapshot) {
-        return GridView.count(
-          crossAxisCount: 4,
-          mainAxisSpacing: 40,
+        return StaggeredGridView.countBuilder(
           padding: EdgeInsets.all(20),
-          children: List.generate(
-              categories.length != 0 ? categories.length : 0, (index) {
-            return Container(
-              width: 40,
-              height: 120,
-              child: Center(
-                child: Text(cat[index]),
-              ),
+          crossAxisCount: 2,
+          scrollDirection: Axis.vertical,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          itemCount: organize.getCategoryList().length != 0
+              ? organize.getCategoryList().length
+              : 0,
+          itemBuilder: (context, index) {
+            return FutureBuilder(
+              future: organize.categorizeApps(),
+              builder: (context, snapshot) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Spacer(),
+                          Text('${organize.getCategoryList()[index]}'
+                              .toUpperCase()),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            height: 180,
+                            color: Colors.transparent,
+                            child: GridView.count(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              children: [
+                                Image.memory(
+                                  organize.getAppIcon(
+                                      organize.getCategoryList()[index], 0),
+                                  fit: BoxFit.cover,
+                                ),
+                                Image.memory(
+                                  organize.getAppIcon(
+                                      organize.getCategoryList()[index], 1),
+                                  fit: BoxFit.cover,
+                                ),
+                                Image.memory(
+                                  organize.getAppIcon(
+                                      organize.getCategoryList()[index], 2),
+                                  fit: BoxFit.cover,
+                                ),
+                                Image.memory(
+                                  organize.getAppIcon(
+                                      organize.getCategoryList()[index], 3),
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white24,
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
-          }),
+          },
+          staggeredTileBuilder: (index) {
+            return StaggeredTile.count(1, index.isOdd ? 1.2 : 1.5);
+          },
         );
       },
     );
