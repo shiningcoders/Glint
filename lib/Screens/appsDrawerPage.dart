@@ -52,9 +52,6 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                           Spacer(),
                           Text('${organize.getCategoryList()[index]}'
                               .toUpperCase()),
-                          SizedBox(
-                            height: 10,
-                          ),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 20),
                             height: 180,
@@ -63,30 +60,42 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              children: [
-                                Image.memory(
+                              mainAxisSpacing: 5,
+                              crossAxisSpacing: 5,
+                              children: List.generate(
+                                organize
+                                    .getAppsList(
+                                        organize.getCategoryList()[index])
+                                    .length,
+                                (index2) => Image.memory(
                                   organize.getAppIcon(
-                                      organize.getCategoryList()[index], 0),
+                                      organize.getCategoryList()[index],
+                                      index2),
                                   fit: BoxFit.cover,
                                 ),
-                                Image.memory(
-                                  organize.getAppIcon(
-                                      organize.getCategoryList()[index], 1),
-                                  fit: BoxFit.cover,
-                                ),
-                                Image.memory(
-                                  organize.getAppIcon(
-                                      organize.getCategoryList()[index], 2),
-                                  fit: BoxFit.cover,
-                                ),
-                                Image.memory(
-                                  organize.getAppIcon(
-                                      organize.getCategoryList()[index], 3),
-                                  fit: BoxFit.cover,
-                                ),
-                              ],
+                              ),
+                              // [
+                              //   Image.memory(
+                              //     organize.getAppIcon(
+                              //         organize.getCategoryList()[index], 0),
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              //   Image.memory(
+                              //     organize.getAppIcon(
+                              //         organize.getCategoryList()[index], 1),
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              //   Image.memory(
+                              //     organize.getAppIcon(
+                              //         organize.getCategoryList()[index], 2),
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              //   Image.memory(
+                              //     organize.getAppIcon(
+                              //         organize.getCategoryList()[index], 3),
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ],
                             ),
                           ),
                           Spacer(),
@@ -103,7 +112,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
             );
           },
           staggeredTileBuilder: (index) {
-            return StaggeredTile.count(1, index.isOdd ? 1.2 : 1.5);
+            return StaggeredTile.count(1, index.isOdd ? 1.3 : 1.6);
           },
         );
       },

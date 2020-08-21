@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 
+import 'package:app_usage/app_usage.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
 class AppsOrganiser {
   List<ApplicationWithIcon> applist;
   Map<String, List<ApplicationWithIcon>> categories = {
+    'suggested': [],
     'system': [],
     'google': [],
     'other': [],
@@ -33,6 +35,25 @@ class AppsOrganiser {
         }
       }
     });
+    getUsageStats();
+  }
+
+  void getUsageStats() async {
+    // Initialization
+    AppUsage appUsage = new AppUsage();
+    try {
+      // Define a time interval
+      DateTime endDate = new DateTime.now();
+      DateTime startDate = DateTime(endDate.month);
+
+      // Fetch the usage stats
+      Map<String, double> usage = await appUsage.fetchUsage(startDate, endDate);
+
+      // (Optional) Remove entries for apps with 0 usage time
+      usage.removeWhere((key, val) => val == 0);
+    } on AppUsageException catch (exception) {
+      print(exception);
+    }
   }
 
   List<String> getCategoryList() {
