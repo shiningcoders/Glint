@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:glint/Screens/appsDrawerPage.dart';
 import 'package:glint/Screens/homePage.dart';
+import 'package:glint/Utils/appsOrganiser.dart';
 
 class App extends StatefulWidget {
   @override
