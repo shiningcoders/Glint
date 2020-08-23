@@ -31,11 +31,10 @@ class AppsOrganiser {
           categories['other'].add(apps[i]);
         }
       }
-      await getUsageStats();
     });
   }
 
-  getUsageStats() async {
+  getSuggestedApps() async {
     // Initialization
     AppUsage appUsage = new AppUsage();
     try {

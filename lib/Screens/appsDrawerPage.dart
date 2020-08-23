@@ -22,7 +22,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
       child: Column(
         children: [
           SizedBox(
-            height: 100,
+            height: 140,
           ),
           FutureBuilder(
             future: organize.categorizeApps(),
@@ -39,7 +39,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                       : 0,
                   itemBuilder: (context, index) {
                     return FutureBuilder(
-                      future: organize.getUsageStats(),
+                      future: organize.getSuggestedApps(),
                       builder: (context, snapshot) {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(30),
@@ -47,11 +47,21 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                             filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
                             child: Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Spacer(),
-                                  Text('${organize.getCategoryList()[index]}'
-                                      .toUpperCase()),
+                                  SizedBox(
+                                    height: index.isOdd ? 40 : 50,
+                                  ),
+                                  Text(
+                                    '${organize.getCategoryList()[index]}'
+                                        .toUpperCase(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                  SizedBox(
+                                    height: index.isOdd ? 10 : 20,
+                                  ),
                                   Container(
                                     color: Colors.transparent,
                                     child: GridView.count(
@@ -64,7 +74,8 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                       children: List.generate(
                                         organize
                                                     .getAppsList(
-                                                        '${organize.getCategoryList()[index]}')
+                                                      '${organize.getCategoryList()[index]}',
+                                                    )
                                                     .length >
                                                 4
                                             ? 4
@@ -82,6 +93,9 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                     ),
                                   ),
                                   Spacer(),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
                                 ],
                               ),
                               decoration: BoxDecoration(
@@ -95,7 +109,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count(1, index.isOdd ? 1.5 : 1.7);
+                    return StaggeredTile.count(1, index.isOdd ? 1.5 : 1.6);
                   },
                 ),
               );
