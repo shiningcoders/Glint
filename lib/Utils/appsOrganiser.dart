@@ -50,20 +50,16 @@ class AppsOrganiser {
       usage.removeWhere((key, val) =>
           val == 0 ||
           key == 'com.shiningcoders.glint' ||
-          key == 'com.miui.home');
+          key == 'com.miui.home' ||
+          key == 'android');
 
-      //=======================================
-      var sortedKeys = usage.keys.toList(growable: false)
-        ..sort((k2, k1) => usage[k1].compareTo(usage[k2]));
-      LinkedHashMap sortedMap = LinkedHashMap.fromIterable(sortedKeys,
-          key: (k) => k, value: (k) => usage[k]);
-      var pink = sortedKeys.sublist(0, 10);
-      for (int i = 0; i < 10; i++) {
-        categories['suggested']
-            .add(await DeviceApps.getApp('${pink[i]}', true));
-      }
-      //========================================
-      pink.clear();
+      usage.forEach((key, value) async {
+        if (value > 120) {
+          if (await DeviceApps.isAppInstalled(key)) {
+            categories['suggested'].add(await DeviceApps.getApp(key, true));
+          } else {}
+        }
+      });
     } on AppUsageException catch (exception) {
       print(exception);
     }

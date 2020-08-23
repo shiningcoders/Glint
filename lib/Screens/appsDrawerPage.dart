@@ -25,6 +25,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
             height: 100,
           ),
           FutureBuilder(
+            future: organize.categorizeApps(),
             builder: (context, snapshot) {
               return Expanded(
                 child: StaggeredGridView.countBuilder(
@@ -38,7 +39,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                       : 0,
                   itemBuilder: (context, index) {
                     return FutureBuilder(
-                      future: organize.categorizeApps(),
+                      future: organize.getUsageStats(),
                       builder: (context, snapshot) {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(30),
@@ -61,28 +62,21 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                       mainAxisSpacing: 2,
                                       crossAxisSpacing: 2,
                                       children: List.generate(
-                                        4,
-                                        (index2) => Container(
-                                          width: 30,
-                                          height: 30,
-                                          child: Column(
-                                            children: [
-                                              Image.memory(
-                                                organize.getAppIcon(
-                                                    organize.getCategoryList()[
-                                                        index],
-                                                    index2),
-                                                fit: BoxFit.cover,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                '${organize.getAppsList(organize.getCategoryList()[index])[index2].appName}',
-                                                style: TextStyle(fontSize: 9),
-                                              ),
-                                            ],
-                                          ),
+                                        organize
+                                                    .getAppsList(
+                                                        '${organize.getCategoryList()[index]}')
+                                                    .length >
+                                                4
+                                            ? 4
+                                            : organize
+                                                .getAppsList(
+                                                    '${organize.getCategoryList()[index]}')
+                                                .length,
+                                        (index2) => Image.memory(
+                                          organize.getAppIcon(
+                                              organize.getCategoryList()[index],
+                                              index2),
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
