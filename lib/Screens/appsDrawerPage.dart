@@ -22,7 +22,51 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
       child: Column(
         children: [
           SizedBox(
-            height: 140,
+            height: 120,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.limeAccent,
+                      backgroundImage: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQPGNU1BIh4-E5mAPVC3KIEDWrzSSJjezla8Q&usqp=CAU'),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Ajayraj Singh'),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text('ajayrajsinghab@gmail.com',
+                            style: TextStyle(fontSize: 12)),
+                      ],
+                    ),
+                    Spacer(),
+                    Text(
+                      'COLLECTIONS',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
           FutureBuilder(
             future: organize.categorizeApps(),
