@@ -109,20 +109,20 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                   Container(
                                     color: Colors.transparent,
                                     child: GridView.count(
-                                      padding: EdgeInsets.all(10),
+                                      padding: EdgeInsets.all(20),
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 2,
-                                      crossAxisSpacing: 2,
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 5,
+                                      crossAxisSpacing: 5,
                                       children: List.generate(
                                         organize
                                                     .getAppsList(
                                                       '${organize.getCategoryList()[index]}',
                                                     )
                                                     .length >
-                                                4
-                                            ? 4
+                                                9
+                                            ? 9
                                             : organize
                                                 .getAppsList(
                                                     '${organize.getCategoryList()[index]}')

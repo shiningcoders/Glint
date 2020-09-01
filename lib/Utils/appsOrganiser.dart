@@ -7,7 +7,7 @@ class AppsOrganiser {
   List<ApplicationWithIcon> applist;
   Map<String, List<ApplicationWithIcon>> categories = {
     'suggested': [],
-    'system': [],
+    'essential': [],
     'google': [],
     'other': [],
   };
@@ -22,7 +22,7 @@ class AppsOrganiser {
         .then((apps) async {
       for (int i = 0; i < apps.length - 1; i++) {
         if (apps[i].packageName.startsWith('com.android')) {
-          categories['system'].add(apps[i]);
+          categories['essential'].add(apps[i]);
         } else if (apps[i].packageName.startsWith('com.google')) {
           categories['google'].add(apps[i]);
         } else if (apps[i].packageName == 'com.shiningcoders.glint') {
