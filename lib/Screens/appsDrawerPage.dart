@@ -93,9 +93,7 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: index.isOdd ? 40 : 50,
-                                  ),
+                                  Spacer(),
                                   Text(
                                     '${organize.getCategoryList()[index]}'
                                         .toUpperCase(),
@@ -104,17 +102,17 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                         fontSize: 16),
                                   ),
                                   SizedBox(
-                                    height: index.isOdd ? 10 : 20,
+                                    height: index.isOdd ? 5 : 10,
                                   ),
                                   Container(
                                     color: Colors.transparent,
                                     child: GridView.count(
-                                      padding: EdgeInsets.all(20),
+                                      padding: EdgeInsets.all(15),
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       crossAxisCount: 3,
-                                      mainAxisSpacing: 5,
-                                      crossAxisSpacing: 5,
+                                      mainAxisSpacing: 8,
+                                      crossAxisSpacing: 8,
                                       children: List.generate(
                                         organize
                                                     .getAppsList(
@@ -137,9 +135,6 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                     ),
                                   ),
                                   Spacer(),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
                                 ],
                               ),
                               decoration: BoxDecoration(

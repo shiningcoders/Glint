@@ -23,21 +23,44 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.3
+  
+  # Responsive Builder
   responsive_builder: ^0.2.0+2
+
+  # Animated Splash Screen
   flare_splash_screen: ^2.0.1+2
+
+  # Device Preview
   device_preview: ^0.4.7
+
+  # Provider - State Management
   provider:
+
+  # Open Weather API call
   weather: ^1.2.2
+
+  # Dart Extensions
   extension: ^0.1.1
+
+  # Weather Icons
   flutter_weather_icons: ^1.0.2
+
+  # Get installed apps and wallpaper
   launcher_assist:
     git:
       url: git://github.com/emvaized/launcher-assist-for-flutter
       ref: master
+
+  # Flutter Web Scrapper
   web_scraper:
+  
+  # Device Apps
   device_apps:
+
+  # Staggered Grid View
   flutter_staggered_grid_view: "^0.3.2"
+
+  # Apps Usage
   app_usage: ^0.1.0
 
 
@@ -74,4 +97,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
