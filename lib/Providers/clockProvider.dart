@@ -1,3 +1,9 @@
+/*
+  This is Clock widget which notifies the current time to its notifiers.
+  Addition to time, the Clock Widget also provides the current weather
+  condition status of the city provided in the query.
+*/
+
 import 'package:flutter/cupertino.dart';
 
 class ClockNotifier extends ChangeNotifier {
