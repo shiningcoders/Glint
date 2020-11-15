@@ -1,3 +1,8 @@
+/*
+  HomePage displays clock widget with current priority notifications
+  with a set of primary apps.
+*/
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:glint/Providers/clockProvider.dart';
@@ -24,11 +29,13 @@ class _HomePageState extends State<HomePage>
               SizedBox(
                 height: 80,
               ),
+              // Clock Widget
               ChangeNotifierProvider(
                   create: (context) => ClockNotifier(), child: Clock()),
               SizedBox(
                 height: 10,
               ),
+              // Notifications Area
               Expanded(
                 child: Container(
                   padding: EdgeInsets.all(30),
@@ -99,6 +106,7 @@ class _HomePageState extends State<HomePage>
                         SizedBox(
                           height: 15,
                         ),
+                        // Primary Apps Bar
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -204,6 +212,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  // Saving last state of HomePage
   @override
   bool get wantKeepAlive => true;
 }
