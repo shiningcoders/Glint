@@ -1,3 +1,8 @@
+/*
+  AppOrganiser fetches all installed apps and organises apps according to
+  collection category.
+*/
+
 import 'dart:collection';
 import 'dart:typed_data';
 import 'package:app_usage/app_usage.dart';
