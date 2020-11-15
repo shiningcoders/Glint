@@ -1,3 +1,7 @@
+/*
+  Clock Widget Displays current time, day, and date with weather status.
+*/
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_icons/flutter_weather_icons.dart';
@@ -60,6 +64,7 @@ class _ClockState extends State<Clock> {
     return '${time}';
   }
 
+  // Day name map
   String formatWeekDay(day) {
     const days = {
       1: 'Monday',
@@ -73,6 +78,7 @@ class _ClockState extends State<Clock> {
     return days[day];
   }
 
+  // Month name map
   String formatMonths(month) {
     const months = {
       1: 'January',
@@ -91,6 +97,7 @@ class _ClockState extends State<Clock> {
     return months[month];
   }
 
+  // Weather Icon map
   Icon formatWeatherIcon(code) {
     const icons = {
       '01d': Icon(
