@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glint/app.dart';
 
+// Main Function
 void main() => runApp(
       DevicePreview(
         enabled: !kReleaseMode,
@@ -12,6 +13,7 @@ void main() => runApp(
       ),
     );
 
+// Main Material App with Splash Screen
 class Glint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,13 @@ class Glint extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Glint',
-      home: SplashScreen('assets/animations/splash.flr', App(),
-          startAnimation: 'Intro', backgroundColor: Colors.white),
+      // Splash Screen
+      home: SplashScreen(
+        'assets/animations/splash.flr',
+        App(),
+        startAnimation: 'Intro',
+        backgroundColor: Colors.white,
+      ),
     );
   }
 }
