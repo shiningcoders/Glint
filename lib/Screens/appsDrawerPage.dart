@@ -1,3 +1,7 @@
+/*
+  AppDrawerPage contains a Page Widget with User Id and App Collections
+*/
+
 import 'dart:ui';
 import 'package:extension/string.dart';
 import 'package:flutter/material.dart';
