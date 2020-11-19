@@ -3,6 +3,7 @@
 */
 
 import 'dart:ui';
+import 'package:device_apps/device_apps.dart';
 import 'package:extension/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -129,11 +130,21 @@ class _AppsDrawerPageState extends State<AppsDrawerPage>
                                                 .getAppsList(
                                                     '${organize.getCategoryList()[index]}')
                                                 .length,
-                                        (index2) => Image.memory(
-                                          organize.getAppIcon(
+                                        (index2) => GestureDetector(
+                                          onTap: () {
+                                            DeviceApps.openApp(
+                                                organize.getPackageName(
                                               organize.getCategoryList()[index],
-                                              index2),
-                                          fit: BoxFit.cover,
+                                              index2,
+                                            ));
+                                          },
+                                          child: Image.memory(
+                                            organize.getAppIcon(
+                                              organize.getCategoryList()[index],
+                                              index2,
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),

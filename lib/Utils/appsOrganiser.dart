@@ -80,4 +80,8 @@ class AppsOrganiser {
   Uint8List getAppIcon(String key, int index) {
     return categories[key][index].icon;
   }
+
+  String getPackageName(String key, int index) {
+    return categories[key][index].packageName;
+  }
 }
